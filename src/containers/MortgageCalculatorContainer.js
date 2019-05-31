@@ -8,25 +8,16 @@ class MortgageCalculatorContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      person: "",
+      age: "",
+      income: "",
+      outcome: "",
+      predictedHousePrice: "",
+      mortgageTerm: 25,
+      intrestRate: 3.5
 
-
-        data:[
-          {
-            id:1,
-            name:  "",
-            age: "",
-            income: "",
-            outcome: "",
-
-          },
-
-        ]
-      }
-
+    };
       this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
-
-
     }
 
 
@@ -34,26 +25,35 @@ class MortgageCalculatorContainer extends React.Component {
 
  handleFormSubmit(submittedForm){
    submittedForm.id = Date.now();
-   const updateForm = [...this.state.data, submittedForm]
-   this.setState({data: updateForm});
+   const person= submittedForm.person;
+   const age = submittedForm.age;
+   const income = submittedForm.income;
+   const outcome = submittedForm.outcome;
+   const predictedHousePrice = submittedForm.predictedHousePrice;
+   this.setState({
+     person: person,
+     age: age,
+     income: income,
+     outcome: outcome,
+     predictedHousePrice: predictedHousePrice
+   });
 
  }
-
-
-
-
-
       render(){
 
          return(
              <div>
-         <h2>MortgageForm</h2>
+         <h2>Mortgage Form</h2>
 
-         <MortgageForm onSubmit={this.handleFormSubmit}/>
-         <MortgageCalculator data={this.state.data}/>
+         <MortgageForm onFormSubmit={this.handleFormSubmit}/>
+         <MortgageDisplay>
+         <li>person={this.state.person}</li>
+          <li>age={this.state.age}</li>
+          <li>income={this.state.income}</li>
+          <li>outcome={this.state.outcome}</li>
+          <li>predictedHousePrice={this.state.predictedHousePrice}</li>
 
-
-
+          </MortgageDisplay>
 
         </div>
       )

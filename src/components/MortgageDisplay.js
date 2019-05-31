@@ -6,7 +6,7 @@ class MortgageDisplay extends Component{
     <div className="mortgage-display">
       <p> {this.props.person}</p>
       <p> {this.props.children}</p>
-    
+
 
     </div>
     )

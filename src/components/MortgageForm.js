@@ -4,14 +4,12 @@ import React, {Component} from "react";
 class MortgageForm extends Component{
   constructor(props){
     super(props);
-    this.state ={
-      person: "",
-      age: "",
-      income: "",
-      outcome: "",
-      predictedHousePrice: "",
-  
-
+    this.state = {
+      person: 0,
+      age: 0,
+      income: 0,
+      outcome: 0,
+      predictedHousePrice: 0
 
     };
 
@@ -22,7 +20,30 @@ class MortgageForm extends Component{
     this.handlePredictedHousePriceChange = this.handlePredictedHousePriceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
-  }
+  };
+
+
+
+handleSubmit(evt){
+  evt.preventDefault();
+  const person = this.state.person;
+  const age = this.state.age;
+  const income = this.state.income;
+  const outcome = this.state.outcome;
+  const predictedHousePrice = this.state.predictedHousePrice;
+  const submission = {
+    person,
+    age,
+    income,
+    outcome,
+    predictedHousePrice,
+  };
+
+
+  this.props.onFormSubmit(submission);
+  this.setState({person: 0, age: 0, income: 0, outcome: 0, predictedHousePrice: 0});
+
+};
 
 handlePersonChange(evt){
   this.setState({person: evt.target.value});
@@ -44,58 +65,55 @@ handlePredictedHousePriceChange(evt){
 }
 
 
-
-
-
-handleSubmit(evt){
-  evt.preventDefault();
-  const person = this.state.person.trim();
-  const age = this.state.age.trim();
-  const income = this.state.income.trim();
-  const outcome = this.state.outcome.trim();
-  const predictedHousePrice = this.state.predictedHousePrice.trim();
-
-
-  if(!income || !person || !age || !outcome || !predictedHousePrice){
-    return
-  }
-
-
-  this.props.onSubmit({person: person, age: age, income: income, outcome: outcome, predictedHousePrice: predictedHousePrice });
-  this.setState({person:"", age:"", income:"", outcome:"", predictedHousePrice:""});
-
-};
-
-
-
-
-
-
-
   render(){
-    return(
+    return (
       <form className="mortgage-form" onSubmit={this.handleSubmit}>
-      <input type="text"
+      <label>Required details</label>
+      <input
+      id = "name"
+      type="text"
+      step ="any"
+      min ="0"
       placeholder="Name"
       value={this.state.person}
+      required
       onChange={this.handlePersonChange}
       />
-      <input type="number"
+      <input
+      id = "age"
+      type="number"
+      step="any"
+      min="0"
       placeholder="Age"
-      value={this.state.age}
       onChange ={this.handleAgeChange}
+      value={this.state.age}
+
       />
-      <input type="number"
+      <input
+      id ="income"
+      type="number"
+      step ="any"
+      min ="0"
       placeholder="Income"
-      value={this.state.income}
       onChange ={this.handleIncomeChange}
+      value={this.state.income}
+
       />
-      <input type="number"
+      <input
+      id = "outcome"
+      type="number"
+      step ="any"
+      min ="0"
       placeholder="Outcome"
-      value={this.state.outcome}
       onChange ={this.handleOutcomeChange}
+      value={this.state.outcome}
+
       />
-      <input type="number"
+      <input
+      id = "predictedHousePrice"
+      type="number"
+      step ="any"
+      min ="0"
       placeholder="PredictedHousePrice"
       value={this.state.predictedHousePrice}
       onChange ={this.handlePredictedHousePriceChange}
